@@ -4,7 +4,7 @@ from ..config import constants
 
 def config_load():
     global config
-    global configFilePath
+    global config_filepath
     parser = OptionParser()
     (options, args) = parser.parse_args()
     if len(args) != 1:
@@ -13,20 +13,14 @@ def config_load():
     if len(args) == 1 and not os.path.isfile(args[0]):
         print "Config file doesn't exist"
         return False
-    configFilePath = args[0]
+    config_filepath = args[0]
     config = ConfigParser.ConfigParser()
 
     #Don't convert keys to lowercase
     config.optionxform = lambda option: option
 
-    config.readfp(codecs.open(configFilePath, 'r', 'utf8'))
+    config.readfp(codecs.open(config_filepath, 'r', 'utf8'))
     return True
-
-def config_get_filepath ():
-    return configFilePath
-
-def config_get_basedir ():
-    return backup_to_basedir
 
 def config_validate():
     global backup_source
@@ -104,7 +98,9 @@ def config_validate():
 
     directoriesOrFiles = backup_source + backup_source_compress
     if len(directoriesOrFiles + backup_remote + backup_remote_compress) < 1:
-        print ('Please specify in configuration file at least one local or remote directory or file to backup')
+        print (
+            'Please specify in configuration file at least one local or remote directory or file to backup'
+        )
         return False
 
     if not os.path.isdir(backup_to_basedir):

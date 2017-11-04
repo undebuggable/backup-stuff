@@ -12,16 +12,14 @@ def createDir(path):
         return False
 
 if config_file.config_load() and config_file.config_validate():
-    backup_to_basedir = config_file.config_get_basedir()
-    backup_configfile = config_file.config_get_filepath()
     ts = time.time()
     backup_to_dir = os.path.join(
-        backup_to_basedir,
+        config_file.backup_to_basedir,
         datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
     )
     if createDir(backup_to_dir):
         shutil.copy(
-            backup_configfile,
+            config_file.config_filepath,
             backup_to_dir
         )
         backup_dirs.backupLocal(backup_to_dir)

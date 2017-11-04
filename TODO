@@ -3,3 +3,4 @@
 • external memory backup - do chmod 777 before
 • after backup finish, log du -sh * (include dot files and directories) to display sizes
 • log time between tasks
+• load console strings from config variables
