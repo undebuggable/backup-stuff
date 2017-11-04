@@ -1,4 +1,4 @@
-import time, datetime, shutil
+import time, datetime, os, shutil
 from backup_dirs_pkg.app import backup as backup_dirs
 from backup_dirs_pkg.app import config_file
 from backup_dirs_pkg.config import constants
@@ -11,22 +11,22 @@ def createDir(path):
         print 'The directory already exists\t' + path
         return False
 
-def backup():
-    global backup_to_dir
+if config_file.config_load() and config_file.config_validate():
+    backup_to_basedir = config_file.config_get_basedir()
+    backup_configfile = config_file.config_get_filepath()
     ts = time.time()
-    backup_to_dir += '/' + datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
+    backup_to_dir = os.path.join(
+        backup_to_basedir,
+        datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
+    )
     if createDir(backup_to_dir):
-        backup_dirs.backupLocal()
-        backup_dirs.backupRemote()
+        shutil.copy(
+            backup_configfile,
+            backup_to_dir
+        )
+        backup_dirs.backupLocal(backup_to_dir)
+        backup_dirs.backupRemote(backup_to_dir)
     else:
         print 'The backup destination directory already exists:\n' + backup_to_dir
-
-if config_file.parseConfig() and config_file.verifyConfig():
-    backup()
-    shutil.copy(
-        configFilePath,
-        backup_to_dir
-    )
-
 else:
     print 'Try again'

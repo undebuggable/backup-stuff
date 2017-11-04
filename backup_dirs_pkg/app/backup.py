@@ -16,7 +16,7 @@ def splitext(path):
             return path[:-len(ext)], path[-len(ext):]
     return os.path.splitext(path)
 
-def backupLocal():
+def backupLocal(backup_to_dir):
     for fileOrDirectory in backup_source + backup_source_compress:
         (mimeType, encoding) = mimetypes.guess_type(fileOrDirectory)
         print 'Processing\t' + fileOrDirectory
@@ -29,7 +29,9 @@ def backupLocal():
                 )
             else:
                 destination_path = os.path.join(backup_to_dir, tail)
-            destination_path += (constants.SUFFIX_TAR if fileOrDirectory in backup_source else constants.SUFFIX_TARGZ)
+            destination_path += (
+                constants.SUFFIX_TAR if fileOrDirectory in backup_source else constants.SUFFIX_TARGZ
+            )
             currentCwd = os.getcwd()
             os.chdir(os.path.dirname(fileOrDirectory))
             exec_shell([
@@ -55,7 +57,7 @@ def backupLocal():
                 destination_path
             )
 
-def backupRemote():
+def backupRemote(backup_to_dir):
     for remoteSource in (backup_remote + backup_remote_compress):
         exec_shell([
             'rsync',
@@ -73,7 +75,9 @@ def backupRemote():
                 )
             else:
                 destination_path = os.path.join(backup_to_dir, tail)
-            destination_path += (constants.SUFFIX_TAR if remoteSource in backup_remote else constants.SUFFIX_TARGZ)
+            destination_path += (
+                constants.SUFFIX_TAR if remoteSource in backup_remote else constants.SUFFIX_TARGZ
+            )
             currentCwd = os.getcwd()
             os.chdir(backup_to_dir)
             exec_shell([

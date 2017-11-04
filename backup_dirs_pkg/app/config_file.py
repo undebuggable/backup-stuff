@@ -2,7 +2,7 @@ from optparse import OptionParser
 import ConfigParser, os.path, codecs
 from ..config import constants
 
-def parseConfig():    
+def config_load():
     global config
     global configFilePath
     parser = OptionParser()
@@ -22,43 +22,83 @@ def parseConfig():
     config.readfp(codecs.open(configFilePath, 'r', 'utf8'))
     return True
 
-def verifyConfig():
-    global backup_to_dir
+def config_get_filepath ():
+    return configFilePath
+
+def config_get_basedir ():
+    return backup_to_basedir
+
+def config_validate():
     global backup_source
     global backup_source_compress
     global backup_remote
     global backup_remote_compress
     global mappings
+    global backup_to_basedir
     backup_source = []
     backup_source_compress = []
     backup_remote = []
     backup_remote_compress = []
     mappings = {}
-    backup_to_dir = ''
+    backup_to_basedir = ''
 
-    if config.has_option(constants.CONFIG_BACKUP_FROM,constants.CONFIG_SOURCE) and len(config.get(constants.CONFIG_BACKUP_FROM,constants.CONFIG_SOURCE).strip()) > 0:
-        backup_source = config.get(constants.CONFIG_BACKUP_FROM,constants.CONFIG_SOURCE).strip().split('\n')
+    if config.has_option(
+        constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE
+    ) and len(
+        config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE).strip()
+    ) > 0:
+        backup_source = config.get(
+            constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE
+        ).strip().split('\n')
     
-    if config.has_option(constants.CONFIG_BACKUP_FROM,constants.CONFIG_SOURCE_COMPRESS) and len(config.get(constants.CONFIG_BACKUP_FROM,constants.CONFIG_SOURCE_COMPRESS).strip()) > 0:
-        backup_source_compress = config.get(constants.CONFIG_BACKUP_FROM,constants.CONFIG_SOURCE_COMPRESS).strip().split('\n')
+    if config.has_option(
+        constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE_COMPRESS
+    ) and len(
+        config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE_COMPRESS).strip()
+    ) > 0:
+        backup_source_compress = config.get(
+            constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE_COMPRESS
+        ).strip().split('\n')
 
-    if config.has_option(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE) and len(config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE).strip()) > 0:
-        backup_remote = config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE).strip().split('\n')
+    if config.has_option(
+            constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE
+    ) and len(
+        config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE).strip()
+    ) > 0:
+        backup_remote = config.get(
+            constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE
+        ).strip().split('\n')
     
     #WARNING!!! When using mappings to avoid name collisions, rename local resources.
     #Remote resources are fetched first with original name and then renamed
-    if config.has_option(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS) and len(config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS).strip()) > 0:
-        backup_remote_compress = config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS).strip().split('\n')
+    if config.has_option(
+            constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS
+    ) and len(
+        config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS).strip()
+    ) > 0:
+        backup_remote_compress = config.get(
+            constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS
+        ).strip().split('\n')
 
-    if config.has_option(constants.CONFIG_RENAME, constants.CONFIG_MAPPINGS) and len(config.get(constants.CONFIG_RENAME, constants.CONFIG_MAPPINGS).strip()) > 0:
+    if config.has_option(
+            constants.CONFIG_RENAME, constants.CONFIG_MAPPINGS
+    ) and len(
+        config.get(constants.CONFIG_RENAME, constants.CONFIG_MAPPINGS).strip()
+    ) > 0:
         mappings = config.get(constants.CONFIG_RENAME, constants.CONFIG_MAPPINGS).strip().split('\n')
         #http://stackoverflow.com/questions/4576115/python-list-to-dictionary
         mappings = dict(zip(mappings[0::2], mappings[1::2]))
 
-    if config.has_option(constants.CONFIG_BACKUP_TO,constants.CONFIG_DIRECTORY) and len(config.get(constants.CONFIG_BACKUP_TO,constants.CONFIG_DIRECTORY).strip()) > 0:
-        backup_to_dir = config.get(constants.CONFIG_BACKUP_TO,constants.CONFIG_DIRECTORY).strip()
+    if config.has_option(
+            constants.CONFIG_BACKUP_TO,constants.CONFIG_DIRECTORY
+    ) and len(
+        config.get(constants.CONFIG_BACKUP_TO,constants.CONFIG_DIRECTORY).strip()
+    ) > 0:
+        backup_to_basedir = config.get(
+            constants.CONFIG_BACKUP_TO, constants.CONFIG_DIRECTORY
+        ).strip()
 
-    if len(backup_to_dir) < 1:
+    if len(backup_to_basedir) < 1:
         print ('Please specify in configuration file one directory to make backup to')
         return False
 
@@ -67,11 +107,11 @@ def verifyConfig():
         print ('Please specify in configuration file at least one local or remote directory or file to backup')
         return False
 
-    if not os.path.isdir(backup_to_dir):
-        print ('Directory doesn\'t exist\t' + backup_to_dir)
+    if not os.path.isdir(backup_to_basedir):
+        print ('Directory doesn\'t exist\t' + backup_to_basedir)
         return False
     else:
-        print ('Directory exists\t' + backup_to_dir)
+        print ('Directory exists\t' + backup_to_basedir)
 
     for dof in directoriesOrFiles:
         if not os.path.exists(dof):
@@ -84,4 +124,5 @@ def verifyConfig():
         if mappingKey not in (directoriesOrFiles + backup_remote + backup_remote_compress):
             print 'Incorrect rename mapping key\t' + mappingKey
             return False
+
     return True
