@@ -24,3 +24,7 @@ ARCHIVE_MIMETYPES = [
     'application/x-rar-compressed',
     'application/x-7z-compressed'
 ]
+
+SUFFIX_TAR = '.tar'
+SUFFIX_TARGZ = '.tar.gz'
+SUFFIX_TARBZ2 = '.tar.bz2'

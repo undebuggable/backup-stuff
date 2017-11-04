@@ -11,7 +11,7 @@ def exec_shell(command):
 
 #http://stackoverflow.com/questions/16976192/whats-the-way-to-extract-file-extension-from-file-name-in-python
 def splitext(path):
-    for ext in ['.tar.gz', '.tar.bz2']:
+    for ext in [constants.SUFFIX_TARGZ, constants.SUFFIX_TARBZ2]:
         if path.endswith(ext):
             return path[:-len(ext)], path[-len(ext):]
     return os.path.splitext(path)
@@ -29,7 +29,7 @@ def backupLocal():
                 )
             else:
                 destination_path = os.path.join(backup_to_dir, tail)
-            destination_path += ('.tar' if fileOrDirectory in backup_source else '.tar.gz')
+            destination_path += (constants.SUFFIX_TAR if fileOrDirectory in backup_source else constants.SUFFIX_TARGZ)
             currentCwd = os.getcwd()
             os.chdir(os.path.dirname(fileOrDirectory))
             exec_shell([
@@ -73,7 +73,7 @@ def backupRemote():
                 )
             else:
                 destination_path = os.path.join(backup_to_dir, tail)
-            destination_path += ('.tar' if remoteSource in backup_remote else '.tar.gz')
+            destination_path += (constants.SUFFIX_TAR if remoteSource in backup_remote else constants.SUFFIX_TARGZ)
             currentCwd = os.getcwd()
             os.chdir(backup_to_dir)
             exec_shell([
