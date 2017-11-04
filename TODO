@@ -1,0 +1,5 @@
+• unbackup utility reverting the backup based on ini file
+• remote backup - check if rsync is available on remote destination, when not fallback to scp
+• external memory backup - do chmod 777 before
+• after backup finish, log du -sh * (include dot files and directories) to display sizes
+• log time between tasks
