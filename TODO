@@ -1,9 +1,0 @@
-• unbackup utility reverting the backup based on ini file
-• remote backup - check if rsync is available on remote destination, when not fallback to scp
-• (?) external memory backup - do chmod 777 before
-• log the timestamps between tasks
-• console strings stored in config variables
-• after successful backup prepare comprehensive report
-  • sizes of created archives (e.g. "du -sh")
-  • checksums of created archives (md5 and sha256)
-
