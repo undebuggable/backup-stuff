@@ -1,3 +1,6 @@
+Configurable utility for automated backup of local and remote directories and files
+=================
+
 Introduction
 ------------------
 
@@ -7,8 +10,8 @@ This utility allows configurable automated backups of local and remote directori
 
 Supported configuration features
 --------------
-- backup local directory or file
-- backup and compress local directory or file
-- backup remote directory or file
-- backup and compress remote directory or file
-- rename the backup archive
+- backup local directory or file (`source`)
+- backup and compress local directory or file (`source_compress`)
+- backup remote directory or file (`remote_source`)
+- backup and compress remote directory or file (`remote_source_compress`)
+- rename the backup archive (`mappings`)
