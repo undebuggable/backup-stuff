@@ -7,4 +7,5 @@
   * [TASK] sizes of created archives (e.g. `du -sh`)
   * [TASK] checksums of created archives (md5 and sha256)
 * [TASK] prepare Python `requirements.txt` for the application
+* [TASK] create unit tests
 
