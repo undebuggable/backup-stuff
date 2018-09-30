@@ -7,3 +7,5 @@
   * [TASK] checksums of created archives (md5 and sha256)
 * [TASK] prepare Python `requirements.txt` for the application
 * [TASK] create unit tests
+* [TASK] create Makefile redirecting stdout and stdin into logs, linting the source code, etc
+* [TASK] `chunk/split/fat32` configuration option - splitting the output archive into smaller chunks allowing to copy the entire backup onto e.g. `fat32` formatted USB drive
