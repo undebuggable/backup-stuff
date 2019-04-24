@@ -1,4 +1,8 @@
-import time, datetime, os, shutil
+import datetime
+import os
+import shutil
+import time
+
 from backup_dirs_pkg.app import backup as backup_dirs
 from backup_dirs_pkg.app import config_file
 from backup_dirs_pkg.config import constants

@@ -1,6 +1,13 @@
-import os.path, time, datetime, subprocess, mimetypes, shutil, ntpath
-from ..config import constants
+import datetime
+import mimetypes
+import ntpath
+import os.path
+import shutil
+import subprocess
+import time
+
 from backup_dirs_pkg.app import config_file
+from ..config import constants
 
 
 def exec_shell(command):

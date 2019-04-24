@@ -1,5 +1,8 @@
+import ConfigParser
+import codecs
+import os.path
 from optparse import OptionParser
-import ConfigParser, os.path, codecs
+
 from ..config import constants
 
 
