@@ -8,10 +8,10 @@ def config_load():
     parser = OptionParser()
     (options, args) = parser.parse_args()
     if len(args) != 1:
-        print "Please specify one config file"
+        print("Please specify one config file")
         return False
     if len(args) == 1 and not os.path.isfile(args[0]):
-        print "Config file doesn't exist"
+        print("Config file doesn't exist")
         return False
     config_filepath = args[0]
     config = ConfigParser.ConfigParser()
@@ -104,21 +104,21 @@ def config_validate():
         return False
 
     if not os.path.isdir(backup_to_basedir):
-        print ('Directory doesn\'t exist\t' + backup_to_basedir)
+        print ('Directory doesn\'t exist\t{}'.format(backup_to_basedir))
         return False
     else:
-        print ('Directory exists\t' + backup_to_basedir)
+        print ('Directory exists\t{}'.format(backup_to_basedir))
 
     for dof in directoriesOrFiles:
         if not os.path.exists(dof):
-            print 'Directory or file doesn\'t exist\t' + dof
+            print('Directory or file doesn\'t exist\t{}'.format(dof))
             return False
         else:
-            print 'Directory or file exists\t' + dof
+            print('Directory or file exists\t{}'.format(dof))
 
     for mappingKey in mappings.keys():
         if mappingKey not in (directoriesOrFiles + backup_remote + backup_remote_compress):
-            print 'Incorrect rename mapping key\t' + mappingKey
+            print('Incorrect rename mapping key\t{}'.format(mappingKey))
             return False
 
     return True

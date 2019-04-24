@@ -8,7 +8,7 @@ def createDir(path):
         os.mkdir(path)
         return True
     else:
-        print 'The directory already exists\t' + path
+        print('The directory already exists\t{}'.format(path))
         return False
 
 if config_file.config_load() and config_file.config_validate():
@@ -25,6 +25,6 @@ if config_file.config_load() and config_file.config_validate():
         backup_dirs.backupLocal(backup_to_dir)
         backup_dirs.backupRemote(backup_to_dir)
     else:
-        print 'The backup destination directory already exists:\n' + backup_to_dir
+        print('The backup destination directory already exists:\n{}'.format(backup_to_dir))
 else:
-    print 'Try again'
+    print('Try again')
