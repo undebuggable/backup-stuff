@@ -22,7 +22,7 @@ def exec_shell(command):
 
 
 def splitext(path):
-    for ext in [CONFIG.SUFFIX_TARGZ, constants.SUFFIX_TARBZ2]:
+    for ext in [CONFIG.SUFFIX_TARGZ, CONFIG.SUFFIX_TARBZ2]:
         if path.endswith(ext):
             return path[: -len(ext)], path[-len(ext) :]
     return os.path.splitext(path)
@@ -56,7 +56,7 @@ def backupLocal(backup_to_dir):
             else:
                 destination_path = os.path.join(backup_to_dir, tail)
             destination_path += (
-                constants.SUFFIX_TAR
+                CONFIG.SUFFIX_TAR
                 if _fileOrDirectory in config_file.backup_source
                 else CONFIG.SUFFIX_TARGZ
             )
@@ -119,7 +119,7 @@ def backupRemote(backup_to_dir):
             else:
                 destination_path = os.path.join(backup_to_dir, tail)
             destination_path += (
-                constants.SUFFIX_TAR
+                CONFIG.SUFFIX_TAR
                 if remoteSource in config_file.backup_remote
                 else CONFIG.SUFFIX_TARGZ
             )

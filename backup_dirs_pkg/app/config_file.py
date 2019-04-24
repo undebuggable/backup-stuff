@@ -43,8 +43,7 @@ def config_validate():
 
     if (
         config.has_option(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE)
-        and len(config.get(CONFIG.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE).strip())
-        > 0
+        and len(config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE).strip()) > 0
     ):
         backup_source = (
             config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE)
@@ -68,12 +67,11 @@ def config_validate():
         )
 
     if (
-        config.has_option(CONFIG.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE)
-        and len(config.get(constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE).strip())
-        > 0
+        config.has_option(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE)
+        and len(config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE).strip()) > 0
     ):
         backup_remote = (
-            config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE)
+            config.get(constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE)
             .strip()
             .split("\n")
         )
@@ -83,14 +81,12 @@ def config_validate():
     if (
         config.has_option(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE_COMPRESS)
         and len(
-            config.get(
-                constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE_COMPRESS
-            ).strip()
+            config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE_COMPRESS).strip()
         )
         > 0
     ):
         backup_remote_compress = (
-            config.get(CONFIG.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS)
+            config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE_COMPRESS)
             .strip()
             .split("\n")
         )
@@ -113,7 +109,7 @@ def config_validate():
         > 0
     ):
         backup_to_basedir = config.get(
-            constants.CONFIG_BACKUP_TO, CONFIG.CONFIG_DIRECTORY
+            CONFIG.CONFIG_BACKUP_TO, CONFIG.CONFIG_DIRECTORY
         ).strip()
 
     if len(backup_to_basedir) < 1:
