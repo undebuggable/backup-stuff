@@ -52,11 +52,9 @@ def config_validate():
         )
 
     if (
-        config.has_option(constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE_COMPRESS)
+        config.has_option(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE_COMPRESS)
         and len(
-            config.get(
-                constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE_COMPRESS
-            ).strip()
+            config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE_COMPRESS).strip()
         )
         > 0
     ):
