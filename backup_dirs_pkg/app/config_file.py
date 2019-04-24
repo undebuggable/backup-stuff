@@ -74,8 +74,8 @@ def config_validate():
             .split("\n")
         )
 
-    # WARNING!!! When using mappings to avoid name collisions, rename local resources.
-    # Remote resources are fetched first with original name and then renamed
+    # [NOTE] When using mappings to avoid name collisions, rename the local resources.
+    # Remote resources are fetched first with original name and then renamed.
     if (
         config.has_option(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE_COMPRESS)
         and len(
@@ -94,15 +94,12 @@ def config_validate():
         and len(config.get(CONFIG.CONFIG_RENAME, CONFIG.CONFIG_MAPPINGS).strip()) > 0
     ):
         mappings = (
-            config.get(constants.CONFIG_RENAME, CONFIG.CONFIG_MAPPINGS)
-            .strip()
-            .split("\n")
+            config.get(CONFIG.CONFIG_RENAME, CONFIG.CONFIG_MAPPINGS).strip().split("\n")
         )
-        # http://stackoverflow.com/questions/4576115/python-list-to-dictionary
         mappings = dict(zip(mappings[0::2], mappings[1::2]))
 
     if (
-        config.has_option(constants.CONFIG_BACKUP_TO, CONFIG.CONFIG_DIRECTORY)
+        config.has_option(CONFIG.CONFIG_BACKUP_TO, CONFIG.CONFIG_DIRECTORY)
         and len(config.get(CONFIG.CONFIG_BACKUP_TO, CONFIG.CONFIG_DIRECTORY).strip())
         > 0
     ):

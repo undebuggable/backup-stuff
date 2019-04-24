@@ -1,1 +1,2 @@
 http://stackoverflow.com/questions/16976192/whats-the-way-to-extract-file-extension-from-file-name-in-python
+http://stackoverflow.com/questions/4576115/python-list-to-dictionary
