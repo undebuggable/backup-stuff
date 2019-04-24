@@ -1,3 +1,1 @@
-__all__ = [
-    "constants"
-]
+__all__ = ["constants"]
