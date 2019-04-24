@@ -23,11 +23,11 @@ def backupLocal(backup_to_dir):
     for fileOrDirectory in config_file.backup_source + config_file.backup_source_compress:
         _fileOrDirectory = fileOrDirectory.rstrip('/')
         (mimeType, encoding) = mimetypes.guess_type(_fileOrDirectory)
-        print '********************'
-        print 'Processing\t' + _fileOrDirectory
+        print('********************')
+        print('Processing\t{}'.format(_fileOrDirectory))
 
         ts = time.time()
-        print "Timestamp\t" + datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
+        print("Timestamp\t{}".format(datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')))
 
         head, tail = ntpath.split(_fileOrDirectory)
         if mimeType not in constants.ARCHIVE_MIMETYPES:
@@ -68,13 +68,13 @@ def backupLocal(backup_to_dir):
             )
 
         ts = time.time()
-        print "Timestamp\t" + datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
+        print("Timestamp\t{}".format(datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')))
 
 def backupRemote(backup_to_dir):
     for remoteSource in (config_file.backup_remote + config_file.backup_remote_compress):
 
         ts = time.time()
-        print "Timestamp\t" + datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
+        print("Timestamp\t{}".format(datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')))
 
         exec_shell([
             'rsync',
@@ -126,4 +126,4 @@ def backupRemote(backup_to_dir):
                 os.rename(source_path, destination_path)
 
         ts = time.time()
-        print "Timestamp\t" + datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
+        print("Timestamp\t{}".format(datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')))
