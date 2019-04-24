@@ -7,7 +7,7 @@ import subprocess
 import time
 
 from backup_dirs_pkg.app import config_file
-from ..config import constants
+from ..config import config as CONFIG
 
 
 def exec_shell(command):
@@ -20,8 +20,9 @@ def exec_shell(command):
         print(stderr)
     return stdout if len(stdout) > 0 else stderr
 
+
 def splitext(path):
-    for ext in [constants.SUFFIX_TARGZ, constants.SUFFIX_TARBZ2]:
+    for ext in [CONFIG.SUFFIX_TARGZ, constants.SUFFIX_TARBZ2]:
         if path.endswith(ext):
             return path[: -len(ext)], path[-len(ext) :]
     return os.path.splitext(path)
@@ -44,7 +45,7 @@ def backupLocal(backup_to_dir):
         )
 
         head, tail = ntpath.split(_fileOrDirectory)
-        if mimeType not in constants.ARCHIVE_MIMETYPES:
+        if mimeType not in CONFIG.ARCHIVE_MIMETYPES:
             source_path = _fileOrDirectory.replace(
                 os.path.dirname(_fileOrDirectory), ""
             )[1::]
@@ -57,7 +58,7 @@ def backupLocal(backup_to_dir):
             destination_path += (
                 constants.SUFFIX_TAR
                 if _fileOrDirectory in config_file.backup_source
-                else constants.SUFFIX_TARGZ
+                else CONFIG.SUFFIX_TARGZ
             )
             currentCwd = os.getcwd()
             os.chdir(os.path.dirname(_fileOrDirectory))
@@ -109,7 +110,7 @@ def backupRemote(backup_to_dir):
         exec_shell(["rsync", "-az", remoteSource, backup_to_dir])
         (head, tail) = ntpath.split(remoteSource)
         (mimeType, encoding) = mimetypes.guess_type(remoteSource)
-        if mimeType not in constants.ARCHIVE_MIMETYPES:
+        if mimeType not in CONFIG.ARCHIVE_MIMETYPES:
             source_path = os.path.join(backup_to_dir, tail)
             if remoteSource in config_file.mappings.keys():
                 destination_path = os.path.join(
@@ -120,7 +121,7 @@ def backupRemote(backup_to_dir):
             destination_path += (
                 constants.SUFFIX_TAR
                 if remoteSource in config_file.backup_remote
-                else constants.SUFFIX_TARGZ
+                else CONFIG.SUFFIX_TARGZ
             )
             currentCwd = os.getcwd()
             os.chdir(backup_to_dir)

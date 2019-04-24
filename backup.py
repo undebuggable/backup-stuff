@@ -5,7 +5,7 @@ import time
 
 from backup_dirs_pkg.app import backup as backup_dirs
 from backup_dirs_pkg.app import config_file
-from backup_dirs_pkg.config import constants
+from backup_dirs_pkg.config import config as CONFIG
 
 
 def createDir(path):

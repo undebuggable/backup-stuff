@@ -3,7 +3,7 @@ import codecs
 import os.path
 from optparse import OptionParser
 
-from ..config import constants
+from ..config import config as CONFIG
 
 
 def config_load():
@@ -42,40 +42,34 @@ def config_validate():
     backup_to_basedir = ""
 
     if (
-        config.has_option(constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE)
-        and len(
-            config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE).strip()
-        )
+        config.has_option(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE)
+        and len(config.get(CONFIG.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE).strip())
         > 0
     ):
         backup_source = (
-            config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE)
+            config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE)
             .strip()
             .split("\n")
         )
 
     if (
-        config.has_option(
-            constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE_COMPRESS
-        )
+        config.has_option(constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE_COMPRESS)
         and len(
             config.get(
-                constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE_COMPRESS
+                constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE_COMPRESS
             ).strip()
         )
         > 0
     ):
         backup_source_compress = (
-            config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_SOURCE_COMPRESS)
+            config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE_COMPRESS)
             .strip()
             .split("\n")
         )
 
     if (
-        config.has_option(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE)
-        and len(
-            config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE).strip()
-        )
+        config.has_option(CONFIG.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE)
+        and len(config.get(constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE).strip())
         > 0
     ):
         backup_remote = (
@@ -87,29 +81,26 @@ def config_validate():
     # WARNING!!! When using mappings to avoid name collisions, rename local resources.
     # Remote resources are fetched first with original name and then renamed
     if (
-        config.has_option(
-            constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS
-        )
+        config.has_option(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE_COMPRESS)
         and len(
             config.get(
-                constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS
+                constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE_COMPRESS
             ).strip()
         )
         > 0
     ):
         backup_remote_compress = (
-            config.get(constants.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS)
+            config.get(CONFIG.CONFIG_BACKUP_FROM, constants.CONFIG_REMOTE_COMPRESS)
             .strip()
             .split("\n")
         )
 
     if (
-        config.has_option(constants.CONFIG_RENAME, constants.CONFIG_MAPPINGS)
-        and len(config.get(constants.CONFIG_RENAME, constants.CONFIG_MAPPINGS).strip())
-        > 0
+        config.has_option(CONFIG.CONFIG_RENAME, CONFIG.CONFIG_MAPPINGS)
+        and len(config.get(CONFIG.CONFIG_RENAME, CONFIG.CONFIG_MAPPINGS).strip()) > 0
     ):
         mappings = (
-            config.get(constants.CONFIG_RENAME, constants.CONFIG_MAPPINGS)
+            config.get(constants.CONFIG_RENAME, CONFIG.CONFIG_MAPPINGS)
             .strip()
             .split("\n")
         )
@@ -117,14 +108,12 @@ def config_validate():
         mappings = dict(zip(mappings[0::2], mappings[1::2]))
 
     if (
-        config.has_option(constants.CONFIG_BACKUP_TO, constants.CONFIG_DIRECTORY)
-        and len(
-            config.get(constants.CONFIG_BACKUP_TO, constants.CONFIG_DIRECTORY).strip()
-        )
+        config.has_option(constants.CONFIG_BACKUP_TO, CONFIG.CONFIG_DIRECTORY)
+        and len(config.get(CONFIG.CONFIG_BACKUP_TO, CONFIG.CONFIG_DIRECTORY).strip())
         > 0
     ):
         backup_to_basedir = config.get(
-            constants.CONFIG_BACKUP_TO, constants.CONFIG_DIRECTORY
+            constants.CONFIG_BACKUP_TO, CONFIG.CONFIG_DIRECTORY
         ).strip()
 
     if len(backup_to_basedir) < 1:
