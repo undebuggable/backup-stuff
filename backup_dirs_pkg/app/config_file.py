@@ -69,7 +69,7 @@ def config_validate():
         and len(config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE).strip()) > 0
     ):
         backup_remote = (
-            config.get(constants.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE)
+            config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_REMOTE)
             .strip()
             .split("\n")
         )
