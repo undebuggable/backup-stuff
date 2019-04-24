@@ -13,8 +13,6 @@ def exec_shell(command):
         print(stderr)
     return stdout if len(stdout) > 0 else stderr
 
-
-# http://stackoverflow.com/questions/16976192/whats-the-way-to-extract-file-extension-from-file-name-in-python
 def splitext(path):
     for ext in [constants.SUFFIX_TARGZ, constants.SUFFIX_TARBZ2]:
         if path.endswith(ext):
