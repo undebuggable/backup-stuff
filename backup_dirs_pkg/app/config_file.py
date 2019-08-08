@@ -119,23 +119,23 @@ def config_validate():
         return False
 
     if not os.path.isdir(backup_to_basedir):
-        print("Directory doesn't exist\t{}".format(backup_to_basedir))
+        print(u"Directory doesn't exist\t{}".format(backup_to_basedir))
         return False
     else:
-        print("Directory exists\t{}".format(backup_to_basedir))
+        print(u"Directory exists\t{}".format(backup_to_basedir))
 
     for dof in directoriesOrFiles:
         if not os.path.exists(dof):
-            print("Directory or file doesn't exist\t{}".format(dof))
+            print(u"Directory or file doesn't exist\t{}".format(dof))
             return False
         else:
-            print("Directory or file exists\t{}".format(dof))
+            print(u"Directory or file exists\t{}".format(dof))
 
     for mappingKey in mappings.keys():
         if mappingKey not in (
             directoriesOrFiles + backup_remote + backup_remote_compress
         ):
-            print("Incorrect rename mapping key\t{}".format(mappingKey))
+            print(u"Incorrect rename mapping key\t{}".format(mappingKey))
             return False
 
     return True
