@@ -1,5 +1,7 @@
-Configurable utility for automated backup of local and remote directories and files
+backup-stuff
 =================
+
+Configurable backups of local and remote directories and files. 
 
 Introduction
 ------------------

@@ -1,5 +1,7 @@
-Enable auto formatting of Python in PyCharm with Black or Save Actions
+Auto formatting
 --------------
+
+Enable auto formatting of Python in PyCharm with Black or Save Actions
 
 ### Auto formatting with Black
 
