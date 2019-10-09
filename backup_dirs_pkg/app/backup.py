@@ -35,11 +35,11 @@ def backupLocal(backup_to_dir):
         _fileOrDirectory = fileOrDirectory.rstrip("/")
         (mimeType, encoding) = mimetypes.guess_type(_fileOrDirectory)
         print("********************")
-        print(u"Processing\t{}".format(_fileOrDirectory))
+        print("Processing\t{}".format(_fileOrDirectory))
 
         ts = time.time()
         print(
-            u"Timestamp\t{}".format(
+            "Timestamp\t{}".format(
                 datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S")
             )
         )
@@ -91,7 +91,7 @@ def backupLocal(backup_to_dir):
 
         ts = time.time()
         print(
-            u"Timestamp\t{}".format(
+            "Timestamp\t{}".format(
                 datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S")
             )
         )
@@ -102,7 +102,7 @@ def backupRemote(backup_to_dir):
 
         ts = time.time()
         print(
-            u"Timestamp\t{}".format(
+            "Timestamp\t{}".format(
                 datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S")
             )
         )
@@ -151,7 +151,7 @@ def backupRemote(backup_to_dir):
 
         ts = time.time()
         print(
-            u"Timestamp\t{}".format(
+            "Timestamp\t{}".format(
                 datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S")
             )
         )
