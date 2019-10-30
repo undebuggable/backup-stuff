@@ -2,4 +2,5 @@ appdirs==1.4.3
 attrs==19.2.0
 black==19.3b0
 Click==7.0
+configparser==4.0.2
 toml==0.10.0
