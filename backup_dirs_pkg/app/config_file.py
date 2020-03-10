@@ -1,4 +1,4 @@
-import ConfigParser
+import configparser as ConfigParser
 import codecs
 import os.path
 from optparse import OptionParser
