@@ -35,7 +35,7 @@ def backupLocal(backup_to_dir):
         _fileOrDirectory = fileOrDirectory.rstrip("/")
         (mimeType, encoding) = mimetypes.guess_type(_fileOrDirectory)
         print("********************")
-        print("Processing\t{}".format(_fileOrDirectory))
+        print("[→] Processing\t{}".format(_fileOrDirectory))
 
         ts = time.time()
         print(
@@ -74,6 +74,13 @@ def backupLocal(backup_to_dir):
                     source_path,
                 ]
             )
+            file_checksum = open(r"{}.{}".format(destination_path, "sha256"), "w")
+            subprocess.Popen(
+                "sha256sum {}".format(destination_path),
+                stdout=file_checksum,
+                shell=True
+            )
+            file_checksum.close()
             os.chdir(currentCwd)
         else:
             # Only copy those backup targets which are already archives
