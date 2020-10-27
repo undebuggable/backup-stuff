@@ -17,7 +17,7 @@ def createDir(path):
         return False
 
 
-if config_file.config_load() and config_file.config_validate():
+if config_file.config_open() and config_file.config_load() and config_file.config_validate():
     ts = time.time()
     backup_to_dir = os.path.join(
         config_file.backup_to_basedir,

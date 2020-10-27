@@ -5,29 +5,7 @@ from optparse import OptionParser
 
 from ..config import config as CONFIG
 
-
 def config_load():
-    global config
-    global config_filepath
-    parser = OptionParser()
-    (options, args) = parser.parse_args()
-    if len(args) != 1:
-        print("Please specify one config file")
-        return False
-    if len(args) == 1 and not os.path.isfile(args[0]):
-        print("Config file doesn't exist")
-        return False
-    config_filepath = args[0]
-    config = ConfigParser.ConfigParser()
-
-    # Don't convert keys to lowercase
-    config.optionxform = lambda option: option
-
-    config.readfp(codecs.open(config_filepath, "r", "utf8"))
-    return True
-
-
-def config_validate():
     global backup_source
     global backup_source_compress
     global backup_remote
@@ -40,7 +18,6 @@ def config_validate():
     backup_remote_compress = []
     mappings = {}
     backup_to_basedir = ""
-
     if (
         config.has_option(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE)
         and len(config.get(CONFIG.CONFIG_BACKUP_FROM, CONFIG.CONFIG_SOURCE).strip()) > 0
@@ -106,36 +83,55 @@ def config_validate():
         backup_to_basedir = config.get(
             CONFIG.CONFIG_BACKUP_TO, CONFIG.CONFIG_DIRECTORY
         ).strip()
+    return True
 
-    if len(backup_to_basedir) < 1:
-        print("Please specify in configuration file one directory to make backup to")
-        return False
-
+def config_validate():
+    is_valid = True
     directoriesOrFiles = backup_source + backup_source_compress
     if len(directoriesOrFiles + backup_remote + backup_remote_compress) < 1:
         print(
-            "Please specify in configuration file at least one local or remote directory or file to backup"
+            "[✘] Nothing to backup in config file"
         )
-        return False
+        is_valid = False
 
     if not os.path.isdir(backup_to_basedir):
-        print("Directory doesn't exist\t{}".format(backup_to_basedir))
-        return False
+        print("[✘] The backup target directory doesn't exist\t{}".format(backup_to_basedir))
+        is_valid = False
     else:
-        print("Directory exists\t{}".format(backup_to_basedir))
+        print("[✔] The backup target directory exists\t{}".format(backup_to_basedir))
 
     for dof in directoriesOrFiles:
         if not os.path.exists(dof):
-            print("Directory or file doesn't exist\t{}".format(dof))
-            return False
+            print("[✘] Directory or file doesn't exist\t{}".format(dof))
+            is_valid = False
         else:
-            print("Directory or file exists\t{}".format(dof))
+            print("[✔] Directory or file exists\t{}".format(dof))
 
     for mappingKey in mappings.keys():
         if mappingKey not in (
             directoriesOrFiles + backup_remote + backup_remote_compress
         ):
-            print("Incorrect rename mapping key\t{}".format(mappingKey))
-            return False
+            print("[✘] Incorrect rename mapping key\t{}".format(mappingKey))
+            is_valid = False
+    return is_valid
 
+def config_open():
+    global config
+    global config_filepath
+    parser = OptionParser()
+    (options, args) = parser.parse_args()
+    if len(args) != 1:
+        print("[✘] No config file specified")
+        return False
+    if len(args) == 1 and not os.path.isfile(args[0]):
+        print("[✘] Config file doesn't exist")
+        return False
+    config_filepath = args[0]
+    config = ConfigParser.ConfigParser()
+
+    # Don't convert keys to lowercase
+    config.optionxform = lambda option: option
+
+    config.readfp(codecs.open(config_filepath, "r", "utf8"))
     return True
+
