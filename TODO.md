@@ -11,3 +11,4 @@
 * [TASK] `chunk/split/fat32` configuration option - splitting the output archive into smaller chunks allowing to copy the entire backup onto e.g. `fat32` formatted USB drive
 * [REFACTOR] parse the command line arguments for the `backup.py` outside of the package
 * [TASK] Prompt for ssh key password and add the keys to the keyring (`ssh-add`) of remote sources before starting the backup
+* [TASK] tests with pytest, including creating dummy directory structure to backup

@@ -7,7 +7,6 @@ from backup_dirs_pkg.app import backup as backup_dirs
 from backup_dirs_pkg.app import config_file
 from backup_dirs_pkg.config import config as CONFIG
 
-
 def createDir(path):
     if not os.path.isdir(path):
         os.mkdir(path)
@@ -15,7 +14,6 @@ def createDir(path):
     else:
         print("The directory already exists\t{}".format(path))
         return False
-
 
 if config_file.config_open() and config_file.config_load() and config_file.config_validate():
     ts = time.time()
@@ -25,8 +23,8 @@ if config_file.config_open() and config_file.config_load() and config_file.confi
     )
     if createDir(backup_to_dir):
         shutil.copy(config_file.config_filepath, backup_to_dir)
-        backup_dirs.backupLocal(backup_to_dir)
-        backup_dirs.backupRemote(backup_to_dir)
+        backup_dirs.backup_local(backup_to_dir)
+        backup_dirs.backup_remote(backup_to_dir)
     else:
         print(
             "The backup destination directory already exists:\n{}".format(backup_to_dir)
