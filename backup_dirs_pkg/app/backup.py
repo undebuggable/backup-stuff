@@ -144,3 +144,24 @@ def backup_remote(backup_to_dir):
                 datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S")
             )
         )
+
+def run():
+    options_parse = utils.parse_options()
+    if options_parse["is_valid"] and config_file.config_open(options_parse["config_filepath"]) and config_file.config_load() and config_file.config_validate():
+        ts = time.time()
+        backup_to_dir = os.path.join(
+            config_file.backup_to_basedir,
+            datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S"),
+        )
+        if utils.createDir(backup_to_dir):
+            shutil.copy(options_parse["config_filepath"], backup_to_dir)
+            backup_local(backup_to_dir)
+            backup_remote(backup_to_dir)
+        else:
+            print(
+                "The backup destination directory already exists:\n{}".format(backup_to_dir)
+            )
+    else:
+        print("Try again")
+
+run()

@@ -1,7 +1,6 @@
 import configparser as ConfigParser
 import codecs
 import os.path
-from optparse import OptionParser
 
 from ..config import config as CONFIG
 
@@ -115,23 +114,14 @@ def config_validate():
             is_valid = False
     return is_valid
 
-def config_open():
+def config_open(config_filepath):
     global config
-    global config_filepath
-    parser = OptionParser()
-    (options, args) = parser.parse_args()
-    if len(args) != 1:
-        print("[✘] No config file specified")
-        return False
-    if len(args) == 1 and not os.path.isfile(args[0]):
+    if not os.path.isfile(config_filepath):
         print("[✘] Config file doesn't exist")
         return False
-    config_filepath = args[0]
     config = ConfigParser.ConfigParser()
-
     # Don't convert keys to lowercase
     config.optionxform = lambda option: option
-
     config.readfp(codecs.open(config_filepath, "r", "utf8"))
     return True
 

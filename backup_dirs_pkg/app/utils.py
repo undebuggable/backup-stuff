@@ -1,4 +1,14 @@
 import subprocess
+import os
+from optparse import OptionParser
+
+def createDir(path):
+    if not os.path.isdir(path):
+        os.mkdir(path)
+        return True
+    else:
+        print("The directory already exists\t{}".format(path))
+        return False
 
 def exec_shell(command):
     print(command)
@@ -24,3 +34,18 @@ def splitext(path):
         if path.endswith(ext):
             return path[: -len(ext)], path[-len(ext) :]
     return os.path.splitext(path)
+
+def parse_options():
+    is_valid = True
+    config_filepath = ""
+    parser = OptionParser()
+    (options, args) = parser.parse_args()
+    if len(args) != 1:
+        print("[✘] No config file specified")
+        is_valid=False
+    if len(args) == 1:
+        config_filepath = args[0]
+    return {
+        "is_valid": is_valid,
+        "config_filepath": config_filepath
+    }
