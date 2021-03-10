@@ -88,36 +88,34 @@ def config_validate():
     is_valid = True
     directoriesOrFiles = backup_source + backup_source_compress
     if len(directoriesOrFiles + backup_remote + backup_remote_compress) < 1:
-        print(
-            "[✘] Nothing to backup in config file"
-        )
+        print(CONFIG.UI_NO_TARGETS)
         is_valid = False
 
     if not os.path.isdir(backup_to_basedir):
-        print("[✘] The backup target directory doesn't exist\t{}".format(backup_to_basedir))
+        print(CONFIG.UI_NO_DIR.format(backup_to_basedir))
         is_valid = False
     else:
-        print("[✔] The backup target directory exists\t{}".format(backup_to_basedir))
+        print(CONFIG.UI_DIR_OK.format(backup_to_basedir))
 
     for dof in directoriesOrFiles:
         if not os.path.exists(dof):
-            print("[✘] Directory or file doesn't exist\t{}".format(dof))
+            print(CONFIG.UI_NO_DIR_FILE.format(dof))
             is_valid = False
         else:
-            print("[✔] Directory or file exists\t{}".format(dof))
+            print(CONFIG.UI_DIR_FILE_OK.format(dof))
 
     for mappingKey in mappings.keys():
         if mappingKey not in (
             directoriesOrFiles + backup_remote + backup_remote_compress
         ):
-            print("[✘] Incorrect rename mapping key\t{}".format(mappingKey))
+            print(CONFIG.UI_FAIL_MAPPING.format(mappingKey))
             is_valid = False
     return is_valid
 
 def config_open(config_filepath):
     global config
     if not os.path.isfile(config_filepath):
-        print("[✘] Config file doesn't exist")
+        print(CONFIG.UI_NO_FILE.format(config_filepath))
         return False
     config = ConfigParser.ConfigParser()
     # Don't convert keys to lowercase

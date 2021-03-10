@@ -64,13 +64,13 @@ def backup_local(backup_to_dir):
     ):
         _fileOrDirectory = fileOrDirectory.rstrip("/")
         (mimeType, encoding) = mimetypes.guess_type(_fileOrDirectory)
-        print("********************")
-        print("[→] Processing\t{}".format(_fileOrDirectory))
+        print(CONFIG.UI_SPACER)
+        print(CONFIG.UI_PROCESSING.format(_fileOrDirectory))
 
         ts = time.time()
         print(
-            "Timestamp\t{}".format(
-                datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S")
+            CONFIG.UI_TIMESTAMP.format(
+                datetime.datetime.fromtimestamp(ts).strftime(CONFIG.DATETIME_FORMATTING)
             )
         )
 
@@ -80,8 +80,8 @@ def backup_local(backup_to_dir):
             backup_local_binary(_fileOrDirectory, backup_to_dir)
         ts = time.time()
         print(
-            "Timestamp\t{}".format(
-                datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S")
+            CONFIG.UI_TIMESTAMP.format(
+                datetime.datetime.fromtimestamp(ts).strftime(CONFIG.DATETIME_FORMATTING)
             )
         )
 
@@ -91,8 +91,8 @@ def backup_remote(backup_to_dir):
 
         ts = time.time()
         print(
-            "Timestamp\t{}".format(
-                datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S")
+            CONFIG.UI_TIMESTAMP.format(
+                datetime.datetime.fromtimestamp(ts).strftime(CONFIG.DATETIME_FORMATTING)
             )
         )
 
@@ -140,8 +140,8 @@ def backup_remote(backup_to_dir):
 
         ts = time.time()
         print(
-            "Timestamp\t{}".format(
-                datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S")
+            CONFIG.UI_TIMESTAMP.format(
+                datetime.datetime.fromtimestamp(ts).strftime(CONFIG.DATETIME_FORMATTING)
             )
         )
 
@@ -151,17 +151,13 @@ def run():
         ts = time.time()
         backup_to_dir = os.path.join(
             config_file.backup_to_basedir,
-            datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d-%H-%M-%S"),
+            datetime.datetime.fromtimestamp(ts).strftime(CONFIG.DATETIME_FORMATTING),
         )
-        if utils.createDir(backup_to_dir):
+        if utils.create_dir(backup_to_dir):
             shutil.copy(options_parse["config_filepath"], backup_to_dir)
             backup_local(backup_to_dir)
             backup_remote(backup_to_dir)
-        else:
-            print(
-                "The backup destination directory already exists:\n{}".format(backup_to_dir)
-            )
     else:
-        print("Try again")
+        print(CONFIG.UI_CONFIGURATION_FAIL)
 
 run()

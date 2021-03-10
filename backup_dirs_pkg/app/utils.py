@@ -2,12 +2,12 @@ import subprocess
 import os
 from optparse import OptionParser
 
-def createDir(path):
+def create_dir(path):
     if not os.path.isdir(path):
         os.mkdir(path)
         return True
     else:
-        print("The directory already exists\t{}".format(path))
+        print(CONFIG.UI_DIR_EXISTS.format(path))
         return False
 
 def exec_shell(command):
@@ -41,7 +41,7 @@ def parse_options():
     parser = OptionParser()
     (options, args) = parser.parse_args()
     if len(args) != 1:
-        print("[✘] No config file specified")
+        print(CONFIG.UI_NO_CONFIG)
         is_valid=False
     if len(args) == 1:
         config_filepath = args[0]
