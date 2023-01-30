@@ -1,6 +1,7 @@
 import subprocess
 import os
 from optparse import OptionParser
+from backup_dirs_pkg.config import config as CONFIG
 
 def create_dir(path):
     if not os.path.isdir(path):
