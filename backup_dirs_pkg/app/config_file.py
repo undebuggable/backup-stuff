@@ -120,6 +120,6 @@ def config_open(config_filepath):
     config = ConfigParser.ConfigParser()
     # Don't convert keys to lowercase
     config.optionxform = lambda option: option
-    config.readfp(codecs.open(config_filepath, "r", "utf8"))
+    config.read_file(codecs.open(config_filepath, "r", "utf8"))
     return True
 
